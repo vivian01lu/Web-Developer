@@ -1,0 +1,125 @@
+li{
+    list-style-type :none;
+ }
+body{
+    background-color: #60a9ff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+html{
+box-sizing: border-box;
+/* box model:meaning we set the width on an element like 100
+px, that's going to factor in the width of the border */
+font-family: 'Open Sans',sans-serif;
+}
+table{
+    border-collapse: collapse;
+    /* ????没学到 */
+    border-spacing: 0;
+}
+.panel{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 25px; 
+    /* padding:15px 25px;  -----前一个参数是top&bottom 后一个是left&right */
+    width: 100%;   
+    /* meaning the width is 100% of its parent */
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-transform: uppercase;
+    /* 更改字体用text-transform */
+
+
+}
+.pricing-plan{
+     border-bottom: 1px solid  #e1f1ff;
+}
+.pricing-plan:last-child {
+    border-bottom: none;
+}
+.pricing-img{
+    margin-bottom:25px;
+    max-width: 100%;
+}
+
+.pricing-header{
+     color: #888;
+     font-weight: 600px;
+     /* font-weight 是改变字体粗细的 font-size 是改变字体大小的 */
+     letter-spacing: 1px;
+}
+.pricing-features{
+     margin: 50px;
+     color: #016ff9;
+}
+.pricing-features-item{
+    font-weight: 600;
+    letter-spacing: 1px;
+    /* letter-spacing  改变字符间距*/
+    font-size: 12px;
+
+    line-height: 1.5;
+    /* light-height 是干啥呢， 用了padding 之后为啥还要用padding */
+    padding: 15px 0;
+    border-top: 1px solid #e1f1ff;
+}
+
+.pricing-price{
+    color:#016ff9;
+    display: block;
+    /* 如何用这个block呢 ---到底display 了个啥 */
+    font-size: 32px;
+    font-weight: 700;
+}
+.pricing-features-item:last-child{
+    /* 学会用这个last-child 和 nth-type-of */
+    border-bottom: 1px solid #e1f1ff;
+    
+}
+.pricing-button{
+    border:1px solid #9dd1ff;
+    border-radius: 10px;
+    color: #348efe;
+    display: inline-block;
+    padding: 15px 35px;
+    text-decoration: none;
+    /* 去掉下划线 */
+    margin: 25px 0;
+    /* margin :前面一个参数是 上下 后面一个参数是左右 */
+    transition: background-color 200ms ease-in-out;
+
+}
+.pricing-button:hover, .pricing-button:focus {
+    /* 这里的focus怎么用的 */
+    background-color: #e1f1ff;
+}
+.pricing-button.is-featured{
+    background-color: #48aaff;
+    color:white;
+    /* background-color 和color作用的不同对象 */
+}
+.pricing-button.is-featured：hover, .pricing-button.pricing-button.is-featured:focus{
+    background-color: #789ebe;
+    color:white;
+    
+}
+/* 专门控制其由竖屏和横屏转化的media 效果 */
+@media(min-width:900px){
+    .panel{
+        flex-direction: row ;
+    } 
+    .pricing-plan{
+        border-bottom: none;
+        border-right:1px solid #e1f1ff;
+        padding: 25px 50px;
+    }
+    .pricing-plan:last-child{
+        border-right:none; 
+    }
+}

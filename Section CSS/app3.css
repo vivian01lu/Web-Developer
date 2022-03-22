@@ -1,0 +1,35 @@
+/* h1{
+    background-color: rgb(209, 199, 106);
+    border: 1px solid black;
+    display: inline;
+}
+
+span{
+    background-color: paleturquoise;
+    border: 1px solid black;
+    display: block;
+} */
+span{
+    background-color: paleturquoise;
+    border: 1px solid black;
+    width: 500px;
+    padding: 50px;
+    margin: 50px;
+}
+h1{
+    background-color: paleturquoise;
+    border: 1px solid black;
+    font-size: 40px;
+    line-height: 200%;
+}
+section{
+    background-color: #6d6875;
+    width: 800px;
+    height: 800px;
+}
+
+div{
+    background-color: #e5989b;
+    width: 50%;
+    height: 50%;
+}
