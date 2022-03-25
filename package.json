@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "bootstrap-icons": "^1.8.1"
+    "cowsayjs": "^1.0.5"
   }
 }

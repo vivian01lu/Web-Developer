@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "bootstrap-icons": "^1.8.1",
+    "colors": "^1.4.0",
+    "give-me-a-joke": "^0.5.1",
+    "webpack": "^5.70.0",
+    "webpack-dev-server": "^3.11.3"
+  }
+}
