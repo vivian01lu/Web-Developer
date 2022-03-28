@@ -1,12 +1,12 @@
 
-// const franc = require('franc');
-// const langs = require("langs");
-// const colors = require('colors');
+const franc = require('franc');
+const langs = require("langs");
+const colors = require('colors');
 // const input = process.argv[2];
 
-import franc from 'franc'
-import langs from 'langs'
-import colors from "colors"
+// import franc from 'franc'
+// import langs from 'langs'
+// import colors from "colors"
 const input = process.argv[2];
 
 const landCode = franc(input);
