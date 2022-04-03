@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+
+<body>
+    <h1>Edit</h1>
+    <!-- 我现在才知道textarea 是用来编辑文本框的！！ -->
+    <!-- form action是表格交出的位置 -->
+    <!-- p367:Express 方法重写，因为网页只能post or get 不能用其他的方法，因此要将其重写使其能用其他方法 -->
+    <form method="POST" action="/comments/<%= comment.id %>/?_method=PATCH ">
+        <textarea name="comment" id="" cols="30" rows="10">
+            <%= comment.Comment %> 
+        </textarea>
+        <button>Save</button>
+    </form>
+
+</body>
+
+</html>

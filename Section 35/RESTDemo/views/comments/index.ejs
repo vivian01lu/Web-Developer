@@ -17,10 +17,13 @@
                     <b>
                         <%= c.username %>
                     </b>
+                    <a href="/comments/<%= c.id %> ">Details</a>
             </li>
             <!-- render c.username here -->
             <% }%>
     </ul>
+    <!-- 把这个链接添加到主页上 -->
+    <a href="/comments/new">New Comment</a>
 
 </body>
 
