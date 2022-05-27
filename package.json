@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "cowsayjs": "^1.0.5"
+    "cowsayjs": "^1.0.5",
+    "morgan": "^1.10.0"
   }
 }
