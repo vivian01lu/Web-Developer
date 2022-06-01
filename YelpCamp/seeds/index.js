@@ -27,10 +27,14 @@ const seedDB = async () => {
 
     //----可以在这里进行循环：
     for (let i = 0; i < 50; i++) {
-        const random1000 = Math.floor(Math.random() * 1000)
+        const random1000 = Math.floor(Math.random() * 1000);
+        const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
             location: `${cities[random1000].city},${cities[random1000].state}`,
-            title: `${sample(descriptors)}${sample(places)}`
+            title: `${sample(descriptors)}${sample(places)}`,
+            image: 'https://source.unsplash.com/collection/483251',
+            description: 'asdfghgjiyturetdcsvbngmhyutyersd',
+            price
         })
         await camp.save();
     }
@@ -40,4 +44,4 @@ const seedDB = async () => {
 //final thing is to close database connection
 seedDB().then(() => { //bc it's an async func
     mongoose.connection.close();
-});
+}); 

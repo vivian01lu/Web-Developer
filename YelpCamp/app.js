@@ -2,6 +2,8 @@
 const express = require('express');
 const path = require('path')
 const mongoose = require('mongoose')
+const ejsMate = require('ejs-mate');
+//这个ejs-mate是用于设计layout的
 const methodOverride = require('method-override');
 const Campground = require('./models/campground')
 
@@ -20,6 +22,7 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }))
