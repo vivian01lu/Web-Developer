@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const morgan = require('morgan')
+const morgan = require('morgan');
+const ApppError = require('./AppError')
 
 
 
@@ -40,7 +41,9 @@ const verifyPassword = ((req, res, next) => {
     if (password === 'chickennugget') {
         next();
     }
-    res.send('sorry you need a password')
+    throw new ApppError('password required!', 401);
+    // res.send('sorry you need a password')
+    // throw new ApppError(401,'Password required!')
 })
 
 app.get('/', (req, res) => {
@@ -48,6 +51,9 @@ app.get('/', (req, res) => {
     res.send('home page')
 })
 
+app.get('/error', (req, res) => {
+    chicken.fly();
+})
 app.get('/dogs', (req, res) => {
     console.log(`Request date:${req.requestTime}`)
     res.send('woof')
@@ -59,9 +65,21 @@ app.get('/secret', verifyPassword, (req, res) => {
 app.use((req, res) => {
     res.status(404).send("not found")
 })
-//this will only run bcs it's at the end of the app or it's at the end of our app definition
-//it will only run if we never sent back anything before,if we never ended the cycle
-//by matching one of these routes
+
+//this is a custom error handler that we set up
+app.use((err, req, res, next) => {
+    console.log("************")
+    console.log("******Error******")
+    console.log("************")
+    // res.status(500).send("Oh boy,we got an error")
+    next(err);//一定要把error传进去才是call next error handler 否则就是next middle ware
+    //in next,when we pass something in,it's going to trigger it and will call next
+    //error handling middleware
+
+    //this will only run bcs it's at the end of the app or it's at the end of our app definition
+    //it will only run if we never sent back anything before,if we never ended the cycle
+    //by matching one of these routes
+})
 
 app.listen(3000, () => {
     console.log("App is running")
