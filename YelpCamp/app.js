@@ -4,6 +4,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const ejsMate = require('ejs-mate');
 //这个ejs-mate是用于设计layout的
+const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground')
 
@@ -41,55 +42,65 @@ app.get('/', (req, res) => {
 //     res.send(camp);
 // })
 
-app.get('/campgrounds', async (req, res) => {
+app.get('/campgrounds', catchAsync(async (req, res) => {
     const campgrounds = await Campground.find({});
     //then pass that through to our template
     res.render('campgrounds/index', { campgrounds })
 
-})
+}))
 
 app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new');
 })
 
-app.post('/campgrounds', async (req, res) => {
+app.post('/campgrounds', catchAsync(async (req, res, next) => {
+
     const campground = new Campground(req.body.campground);
     // res.send(req.body)
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`)
-})
 
-app.get('/campgrounds/:id', async (req, res) => {
+
+}))
+
+app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/show', { campground });
 
-})
-app.get('/campgrounds/:id/edit', async (req, res) => {
+}))
+app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
-})
+}))
 //关于submit this edit form:forms really only send a get or post request from the browser 
 //so we can fake a put,patch delete and so on using method override:需要先在bash中下载override:
 //下载：npm i method-override然后需要去require override还需要app.use
 
-app.put('/campgrounds/:id', async (req, res) => {
+app.put('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground })
     //也可以用findbyId 然后再update thing individually 然后save()
     //----use spread operator
     // res.send("It worked!");---after this we need try to update the campgrounds that we want to update
     res.redirect(`/campgrounds/${campground._id}`)
-})
+}))
 //so now be able to set a post route as an example of put route rather a delete or patch
 
 //make a button to send the delete request,so it's a from that will send a post request to this url
 //but it's going to fake out express make it think it's a delete request bcs method override
 
-app.delete('/campgrounds/:id', async (req, res) => {
+app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
+}))
+
+//basic error handler:
+app.use((err, req, res, next) => {
+    res.send('Oh boy,somthing went wrong!')
 })
+
+
 
 app.listen(3000, () => {
     console.log('Serving on port 3000')
