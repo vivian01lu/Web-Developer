@@ -6,12 +6,13 @@ const ejsMate = require('ejs-mate');
 //这个ejs-mate是用于设计layout的
 // const Joi = require('joi');------已经在Schema中require了
 //这个joi是用来在处理validation error 的（在没输入有效内容就鼠标点到其他地方时报错）
-const { campgroundSchema } = require('./schemas.js')
+const { campgroundSchema, reviewSchema } = require('./schemas.js')
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError')
 const methodOverride = require('method-override');
 const Campground = require('./models/campground');
-const e = require('express');
+const Review = require('./models/review');
+
 
 //在这里connect mongo:
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -20,6 +21,7 @@ mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     // useCreateIndex: true,
 
 });
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -48,6 +50,16 @@ const validateCampground = (req, res, next) => {
 
 }
 
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
 app.get('/', (req, res) => {
     // res.send('Hello from yelpcamp')
     res.render('home')
@@ -72,7 +84,7 @@ app.get('/campgrounds/new', (req, res) => {
 })
 
 //create a new campground 用post
-app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) => {
+app.post('/campgrounds', validateCampground, validateReview, catchAsync(async (req, res, next) => {
     // // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
     // // if (!req.body.campground.price) {
 
@@ -91,7 +103,7 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
 }))
 
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+    const campground = await Campground.findById(req.params.id).populate('reviews');
     res.render('campgrounds/show', { campground });
 
 }))
@@ -121,6 +133,27 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
+
+}))
+
+app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+}))
+
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
+    /**
+     * $pull:it removes from an existing array all instances of a value or values that match a specified condition
+     */
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/campgrounds/${id}`);
+
 }))
 
 //this can be only run if nothing else has mathced first and we didn't respond many of them
