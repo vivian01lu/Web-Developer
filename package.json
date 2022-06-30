@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cowsayjs": "^1.0.5",
+    "init": "^0.1.2",
     "morgan": "^1.10.0"
   }
 }
