@@ -67,6 +67,7 @@ passport.deserializeUser(User.deserializeUser());//how do you get the a user out
 
 //create a middle ware before routes handler to use show flash template
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;//so that in all template i now have access to current user
     res.locals.success = req.flash('success');
     //whatever this is,just a recap we'll have access to our templates
     //we don't have to pass it through
