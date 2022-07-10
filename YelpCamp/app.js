@@ -12,10 +12,13 @@ const flash = require('connect-flash');
 
 const ExpressError = require('./utils/ExpressError')
 const methodOverride = require('method-override');
+const passport = require('passport');//passport is used to allow us to plug in multiple strategies for authentication
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
-
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews');
+const userRoutes = require('./routes/users');
+const campgroundsRoutes = require('./routes/campgrounds');
+const reviewsRoutes = require('./routes/reviews');
 
 //在这里connect mongo:
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -55,6 +58,13 @@ const sessionConfig = {
 app.use(session(sessionConfig))
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());//this is telling a password how to serialize a user (how do we get data,how do we store a user in the session)
+passport.deserializeUser(User.deserializeUser());//how do you get the a user out of that session
+
 //create a middle ware before routes handler to use show flash template
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
@@ -64,8 +74,16 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/campgrounds', campgrounds)
-app.use('/campgrounds/:id/reviews', reviews)
+//fake a user
+app.get('/fakeUser', async (req, res) => {
+    const user = new User({ email: 'coltttt@gmail.com', username: 'coltttt' })
+    const newUser = await User.register(user, 'chicken');
+    res.send(newUser);
+})
+
+app.use('/', userRoutes);
+app.use('/campgrounds', campgroundsRoutes)
+app.use('/campgrounds/:id/reviews', reviewsRoutes)
 
 app.get('/', (req, res) => {
     // res.send('Hello from yelpcamp')

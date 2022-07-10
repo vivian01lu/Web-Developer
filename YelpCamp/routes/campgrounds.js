@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError')
 const Campground = require('../models/campground');
 const { campgroundSchema } = require('../schemas.js')
-
+const { isLoggedIn } = require('../middleware');
 
 const validateCampground = (req, res, next) => {
     // //build schema for Joi,this is going to validate our data before we even attempt to save it with Mongoose
@@ -27,12 +27,12 @@ router.get('/', catchAsync(async (req, res) => {
 
 }))
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('campgrounds/new');
 })
 
 //create a new campground 用post
-router.post('/', validateCampground, catchAsync(async (req, res, next) => {
+router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, next) => {
     const campground = new Campground(req.body.campground);
     // res.send(req.body)
     await campground.save();
@@ -50,7 +50,7 @@ router.get('/:id', catchAsync(async (req, res) => {
     res.render('campgrounds/show', { campground });
 }))
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     if (!campground) {
         req.flash('error', 'Cannot find that campground!')
@@ -60,7 +60,7 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
 }))
 
 
-router.put('/:id', validateCampground, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground })
     req.flash('success', 'Successfully updated campground!')
