@@ -55,7 +55,7 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
 }
-app.use(session(sessionConfig))
+app.use(session(sessionConfig));
 app.use(flash());
 
 app.use(passport.initialize());
@@ -67,6 +67,7 @@ passport.deserializeUser(User.deserializeUser());//how do you get the a user out
 
 //create a middle ware before routes handler to use show flash template
 app.use((req, res, next) => {
+    console.log(req.session);
     res.locals.currentUser = req.user;//so that in all template i now have access to current user
     res.locals.success = req.flash('success');
     //whatever this is,just a recap we'll have access to our templates
@@ -88,7 +89,7 @@ app.use('/campgrounds/:id/reviews', reviewsRoutes)
 
 app.get('/', (req, res) => {
     // res.send('Hello from yelpcamp')
-    res.render('home')
+    res.render('home');
 })
 
 // app.get('/makecampground', async (req, res) => {
