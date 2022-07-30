@@ -4,8 +4,10 @@ const catchAsync = require('../utils/catchAsync');
 const campgrounds = require('../contollers/campgrounds');
 const { isLoggedIn, isAuthor, validateCampground } = require('../middleware');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
-const { storage } = require('../cloudinary')
+const { storage } = require('../cloudinary');
+const upload = multer({ storage });
+//instead of storing things in our uploads folder locally,we should remove that
+
 
 const Campground = require('../models/campground');
 
