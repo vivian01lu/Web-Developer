@@ -1,44 +1,62 @@
 <% layout('layouts/boilerplate') %>
-    <div class="row">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659196128/samples/ecommerce/accessories-bag.jpg"
-                        class="img-fluid" alt="...">
-                </div>
-                <div class="carousel-item ">
-                    <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659299884/samples/ecommerce/resize-18-1651-TEXTBOOK-037_xji4k1.jpg"
-                        class="img-fluid" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659300473/samples/animals/akrales_190424_3301_0426.0_myaatg.jpg"
-                        class="img-fluid" alt="...">
-                </div>
+    <div class="mx-auto w-75 h-auto p-3 mt-3 mb-3" style="background-color: #eee;" width="500px" length="400px">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="currentColor" class="bi bi-shop"
+                viewBox="0 0 16 16">
+                <path
+                    d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
+            </svg>
+            Columbus Flea Market
+        </h1>
+        <p>This is a flea market just for Columbus students!Find something you need and like in a real bargain!Enjoy
+            your journey!</p>
+        <form class="form" action="/campgrounds method=" GET">
+            <div class="form-group">
+                <input id="search" class="form-control" type="text" name="search" placeholder="Search Items"
+                    autocomplete="off">
+                <label for="search"></label>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+        </form>
     </div>
-    <hr>
+    <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659196128/samples/ecommerce/accessories-bag.jpg"
+                    class="img-fluid" alt="...">
+            </div>
+            <div class="carousel-item ">
+                <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659299884/samples/ecommerce/resize-18-1651-TEXTBOOK-037_xji4k1.jpg"
+                    class="img-fluid" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659300473/samples/animals/akrales_190424_3301_0426.0_myaatg.jpg"
+                    class="img-fluid" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    </div> -->
+
+    <!-- <hr>
     <div>
-        <a href=" /campgrounds/new" class="link-danger">
+        <a href=" /campgrounds/new" class="link-info">
             <h2>Post My Item</h2>
         </a>
     </div>
-    <hr>
-
-    <% for(let campground of campgrounds){ %>
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-                <div class="card">
+    <hr> -->
+    <div class="container-fluid">
+        <% for(let campground of campgrounds){ %>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
                     <img src="<%= campground.image %> " alt="" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -50,15 +68,13 @@
                         <p class="text-muted">
                             <%= campground.location %>
                         </p>
-                        <a class="btn btn-danger" href="/campgrounds/<%= campground._id %> ">View <%= campground.title
-                                %>
+                        <a class="btn btn-info" href="/campgrounds/<%= campground._id %> ">View <%= campground.title %>
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- <div class="cardtext-b g-secondary mb-3" mb-3>
+    </div>
+    <!-- <div class="cardtext-b g-secondary mb-3" mb-3>
             <div class="row">
                 <div class="col-md-4">
                     <img src="<%= campground.image %> " alt="" class="img-fluid">
@@ -79,4 +95,4 @@
             </div>
         </div> -->
 
-        <% } %>
+    <% } %>
