@@ -18,46 +18,12 @@
             </div>
         </form>
     </div>
-    <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659196128/samples/ecommerce/accessories-bag.jpg"
-                    class="img-fluid" alt="...">
-            </div>
-            <div class="carousel-item ">
-                <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659299884/samples/ecommerce/resize-18-1651-TEXTBOOK-037_xji4k1.jpg"
-                    class="img-fluid" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://res.cloudinary.com/dcofkepsp/image/upload/v1659300473/samples/animals/akrales_190424_3301_0426.0_myaatg.jpg"
-                    class="img-fluid" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-    </div> -->
 
-    <!-- <hr>
-    <div>
-        <a href=" /campgrounds/new" class="link-info">
-            <h2>Post My Item</h2>
-        </a>
-    </div>
-    <hr> -->
     <div class="container-fluid">
         <% for(let campground of campgrounds){ %>
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                    <img src="<%= campground.image %> " alt="" class="img-fluid">
+                    <img src="<%= campground.images[0].url %> " alt="" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">
                             <%= campground.title %>
@@ -74,25 +40,5 @@
                 </div>
             </div>
     </div>
-    <!-- <div class="cardtext-b g-secondary mb-3" mb-3>
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="<%= campground.image %> " alt="" class="img-fluid">
-                </div>
-                <div class="col-md-8">
-                    <h5 class="card-title">
-                        <%= campground.title %>
-                    </h5>
-                    <p class="card-text">
-                        <%= campground.description %>
-                    </p>
-                    <p class="text-muted">
-                        <%= campground.location %>
-                    </p>
-                    <a class="btn btn-primary" href="/campgrounds/<%= campground._id %> ">View <%= campground.title %>
-                    </a>
-                </div>
-            </div>
-        </div> -->
 
     <% } %>
